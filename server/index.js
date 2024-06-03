@@ -53,9 +53,26 @@ const InitTelegramBot = async () => {
 };
 
 export const startAdmin = async () => {
-  const Components = {
-    Dashboard: componentLoader.add("Dashboard", "./admin/dashboard")
+  const DEFAULT_ADMIN = {
+    email: "1",
+    password: "1",
   };
+  const osVersion = process.platform;
+  const Components = {
+    Dashboard:
+      osVersion == "darwin" || osVersion == "linux"
+        ? componentLoader.add("Dashboard", "./admin/dashboard")
+        : componentLoader.add(
+            "Dashboard",
+            "C:\\Users\\Zhassulan\\Desktop\\Erastudy-main\\server\\admin\\dashboard.jsx"
+          ),
+  };
+  
+// export const startAdmin = async () => {
+//   const Components = {
+//     Dashboard: componentLoader.add("Dashboard", "./admin/dashboard")
+//   };
+
 
   AdminJS.registerAdapter({
     Resource: AdminJSMongoose.Resource,
